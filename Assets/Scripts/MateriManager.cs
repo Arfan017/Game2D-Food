@@ -42,14 +42,14 @@ public class MateriManager : MonoBehaviour
             if (Objectfood[i].FoodStatus == false)
             {
                 Image imagefood = Objectfood[i].GetComponent<Image>();
-                imagefood.color = Color.black;
+                // imagefood.color = Color.black;
                 BoxCollider boxColliderFoo = Objectfood[i].GetComponent<BoxCollider>();
                 boxColliderFoo.enabled = false;
             }
             else
             {
                 Image imagefood = Objectfood[i].GetComponent<Image>();
-                imagefood.color = Color.white;
+                // imagefood.color = Color.white;
                 BoxCollider boxColliderFoo = Objectfood[i].GetComponent<BoxCollider>();
                 boxColliderFoo.enabled = true;
             }
