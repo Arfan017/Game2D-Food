@@ -3273,10 +3273,14 @@ PrefabInstance:
       propertyPath: tempatJawaban
       value: 
       objectReference: {fileID: 2051370424}
+    - target: {fileID: 9116830340273526489, guid: 69ca79bba63fda34987b2da4a07ce4e2, type: 3}
+      propertyPath: ID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9116830340396856203, guid: 69ca79bba63fda34987b2da4a07ce4e2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 137b00cb88261214db25301dee9c8f3e, type: 3}
+      objectReference: {fileID: 21300000, guid: 8aff252e3360ea848bbfc9f59ff0188c, type: 3}
     - target: {fileID: 9116830341514095098, guid: 69ca79bba63fda34987b2da4a07ce4e2, type: 3}
       propertyPath: m_Name
       value: BgImage
