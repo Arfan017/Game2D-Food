@@ -1,4 +1,3 @@
-using CarterGames.Assets.SaveManager;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,14 +18,9 @@ public class MateriManager : MonoBehaviour
     int? ObjectFoodPosition = null;
     bool MateriIsClick = false;
     private DataParsistenceManager dataParsistenceManager;
+    private int PointStart;
 
     public static DataParsistenceManager instance { get; private set; }
-
-    // private void OnEnable()
-    // {
-    //     SaveFoodManager = SaveManager.GetSaveObject<DataFoodSaveObject>();
-    //     LoadFood();
-    // }
 
 
     public void Start()
@@ -133,8 +127,6 @@ public class MateriManager : MonoBehaviour
         PointStar = PointFood;
         TextStar.text = PointStar.ToString();
 
-        // PointFood = ;
-
         imageFood.sprite = ImageFood;
         nameFood.text = NameFood;
         descriptionFood.text = DeskFood;
@@ -150,5 +142,12 @@ public class MateriManager : MonoBehaviour
         MateriIsClick = false;
         panelFood.SetActive(true);
         panelMateri.SetActive(false);
+        addStart();
+    }
+
+    private void addStart()
+    {
+        PointStart = +1;
+        TextStar.text = PointStart.ToString();
     }
 }

@@ -91,7 +91,7 @@ public class PuzzelManager : MonoBehaviour
         }
     }
 
-    public GameObject StartPanel, PanelMenang, PanelKalah, PanelSelesai;
+    public GameObject StartPanel, PanelMenang, PanelKalah;
     public void SetPuzzlePhoto(Sprite Photo)
     {
         // string nextPuzzleName = PlayerPrefs.GetString("NextPuzzlePhoto", "");
@@ -143,15 +143,7 @@ public class PuzzelManager : MonoBehaviour
 
     public void ShowPanelWin()
     {
-        if (SceneManager.GetActiveScene().name == "GameLvl3 1")
-        {
-            Time.timeScale = 0;
-            PanelMenang.SetActive(true);
-        }
-        else
-        {
-            PanelSelesai.SetActive(true);
-        }
+        PanelMenang.SetActive(true);
     }
 
     public void ShowPanelLose()

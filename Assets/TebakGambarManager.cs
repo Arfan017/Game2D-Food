@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class TebakGambarManager : MonoBehaviour
 {
@@ -45,4 +47,15 @@ public class TebakGambarManager : MonoBehaviour
             panelKalah.SetActive(true);
         }
     }
+
+    public void MainUlang()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ChangeSceneIsClick(int SceneIndex)
+    {
+        SceneManager.LoadScene(SceneIndex);
+    }
+
 }

@@ -24,9 +24,18 @@ EditorBuildSettings:
     path: Assets/Scenes/GameLvl1/SceneQuiz3.unity
     guid: 92d63649f8318a34688bd6e439fdf8e9
   - enabled: 1
-    path: Assets/Scenes/GameLvl3/GameLvl3 1.unity
-    guid: 117b8b34f49e7ae4c973684575c44e16
+    path: Assets/Scenes/GameLvl2/SceneTebakGambar1.unity
+    guid: 617ae9448bfc83243ad32b26c83e8979
   - enabled: 1
-    path: Assets/Scenes/GameLvl3/GameLvl3 Modif.unity
+    path: Assets/Scenes/GameLvl2/SceneTebakGambar2.unity
+    guid: db0b178d5c64ff54eb2df9fa9a113d34
+  - enabled: 1
+    path: Assets/Scenes/GameLvl2/SceneTebakGambar3.unity
+    guid: 93cba1db075f0a647b9b13d357ad3fbf
+  - enabled: 1
+    path: Assets/Scenes/GameLvl3/GamePuzzle1.unity
     guid: dad32d313c9e4284684114bf7e4d604a
+  - enabled: 1
+    path: Assets/Scenes/GameLvl3/GamePuzzle2.unity
+    guid: 117b8b34f49e7ae4c973684575c44e16
   m_configObjects: {}
