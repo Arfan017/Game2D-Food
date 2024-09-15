@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class TebakGambarManager : MonoBehaviour
 {
     public GameObject panelMenang;
+    public AudioSource audioMenang;
     public GameObject panelKalah;
+    public AudioSource audioKalah;
 
     private bool jawabanBenar;
     public bool JawabanBenar
@@ -40,11 +42,13 @@ public class TebakGambarManager : MonoBehaviour
         {
             panelMenang.SetActive(true);
             panelKalah.SetActive(false);
+            audioMenang.Play();
         }
         else
         {
             panelMenang.SetActive(false);
             panelKalah.SetActive(true);
+            audioKalah.Play();
         }
     }
 

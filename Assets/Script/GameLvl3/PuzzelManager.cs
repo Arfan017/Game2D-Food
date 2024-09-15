@@ -19,6 +19,9 @@ public class PuzzelManager : MonoBehaviour
     private int RemeaningPlace = 16;
     int OIL = 1;
 
+    public AudioSource audioMenang;
+    public AudioSource audioKalah;
+
     public int RemeaningPlace_
     {
         get
@@ -144,11 +147,13 @@ public class PuzzelManager : MonoBehaviour
     public void ShowPanelWin()
     {
         PanelMenang.SetActive(true);
+        audioMenang.Play();
     }
 
     public void ShowPanelLose()
     {
         PanelKalah.SetActive(true);
+        audioKalah.Play();
     }
 
     public void NextGame(int sceneIndex)

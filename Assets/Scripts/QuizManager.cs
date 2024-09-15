@@ -16,6 +16,7 @@ public class QuizManager : MonoBehaviour
         public List<string> options;
         public int correctOptionIndex;
     }
+
     public TextMeshProUGUI questionText;
     public Image imageQuestion;
     public Image newImageHealth;
@@ -25,7 +26,9 @@ public class QuizManager : MonoBehaviour
     private bool isAnswered = false;
     public HealthBarManager healthBarManager;
     public GameObject PanelWin;
+    public AudioSource audioMenang;
     public GameObject PanelLose;
+    public AudioSource audioKalah;
 
     void Start()
     {
@@ -77,14 +80,14 @@ public class QuizManager : MonoBehaviour
             {
                 Debug.Log("Jawaban benar!");
                 PanelWin.SetActive(true);
-
+                audioMenang.Play();
 
             }
             else
             {
                 Debug.Log("Jawaban salah!");
                 PanelLose.SetActive(true);
-
+                audioKalah.Play();
                 // healthBarManager.WrongAnswer();
             }
             NextQuestionWithDelay();
