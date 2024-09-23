@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,28 +6,46 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MateriManager : MonoBehaviour
+// , IDataPersistence
 {
     public GameObject panelMateri;
     public GameObject panelFood;
+    public GameObject PanelHadiah;
     public GameObject Pointer;
     public Image imageFood;
     public TextMeshProUGUI nameFood;
     public TextMeshProUGUI descriptionFood;
     public TextMeshProUGUI TextStar;
-    private int PointStar = 0;
+    public TextMeshProUGUI TextPesan;
+    public Button BtnTutupPanel;
+    public TextMeshProUGUI TextKeys;
+    public static DataParsistenceManager instance { get; private set; }
     public Food[] Objectfood;
     int? ObjectFoodPosition = null;
     bool MateriIsClick = false;
     private DataParsistenceManager dataParsistenceManager;
     private int PointStart;
-
-    public static DataParsistenceManager instance { get; private set; }
-
+    int keys;
+    int posisiMateri;
 
     public void Start()
     {
         dataParsistenceManager = FindAnyObjectByType<DataParsistenceManager>();
-        DataParsistenceManager.instance.SaveGame();
+        if (dataParsistenceManager != null)
+        {
+            DataParsistenceManager.instance.LoadGame();
+        }
+        // DataParsistenceManager.instance.LoadGame();
+        BtnTutupPanel.onClick.AddListener(TutupPanel);
+
+        int keys = PlayerPrefs.GetInt("keys", 0);
+        TextKeys.text = keys.ToString();
+        CekStatusMateri();
+
+        if (keys == 3)
+        {
+            // PanelHadiah.SetActive(true);
+        }
     }
 
     public void Update()
@@ -73,29 +92,12 @@ public class MateriManager : MonoBehaviour
                             ObjectFoodPosition = i;
                             // Lakukan sesuatu dengan game object yang diklik
                             Debug.Log("Anda mengklik game object dengan index: " + i);
-
+                            posisiMateri = i + 1;
                             // panelFoodIsActive(Objectfood[i].ImageFood, Objectfood[i].NameFood, Objectfood[i].DeskFood);
                             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
                             touchPosition.z = 0f;
                             Pointer.transform.position = touchPosition;
-
-                            // Instantiate(Pointer, touchPosition, Quaternion.identity);
-
-                            // Misalnya, Anda bisa memanggil fungsi lain atau melakukan manipulasi lainnya di sini
-                            // Image imagefood = Objectfood[i + 1].ImageFood.GetComponent<Image>();
-                            // if (imagefood != null)
-                            // {
-                            //     imagefood.color = Color.white;
-                            // }
-
-                            // break;
                         }
-
-                        // Image imagefood = Objectfood[i].ImageFood.GetComponent<Image>();
-                        // if (imagefood != null)
-                        // {
-                        //     imagefood.color = Color.white;
-                        // }
                     }
                 }
             }
@@ -106,7 +108,6 @@ public class MateriManager : MonoBehaviour
             panelFoodIsActive(Objectfood[ObjectFoodPosition.Value].ImageFood, Objectfood[ObjectFoodPosition.Value].NameFood,
             Objectfood[ObjectFoodPosition.Value].DeskFood, Objectfood[ObjectFoodPosition.Value].PointFood);
         }
-
         else
         {
             MateriIsClick = false;
@@ -124,8 +125,8 @@ public class MateriManager : MonoBehaviour
         panelMateri.SetActive(true);
         panelFood.SetActive(false);
 
-        PointStar = PointFood;
-        TextStar.text = PointStar.ToString();
+        // PointStar = PointFood;
+        // TextStar.text = PointStar.ToString();
 
         imageFood.sprite = ImageFood;
         nameFood.text = NameFood;
@@ -149,5 +150,83 @@ public class MateriManager : MonoBehaviour
     {
         PointStart = +1;
         TextStar.text = PointStart.ToString();
+    }
+
+    void TutupPanel()
+    {
+        MateriIsClick = false;
+        if (!MateriIsClick)
+        {
+            PanelHadiah.SetActive(false);
+            panelMateri.SetActive(false);
+            panelFood.SetActive(true);
+        }
+    }
+
+    private void panelHadiah()
+    {
+        PanelHadiah.SetActive(true);
+        TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game quiz level " + posisiMateri.ToString();
+    }
+
+    void CekStatusMateri()
+    {
+        int Materi2, Materi3, Materi4, Materi5, Materi6, Materi7, Materi8;
+        Materi2 = PlayerPrefs.GetInt("Materi2", 0);
+        Materi3 = PlayerPrefs.GetInt("Materi3", 0);
+        Materi4 = PlayerPrefs.GetInt("Materi4", 0);
+        Materi5 = PlayerPrefs.GetInt("Materi5", 0);
+        Materi6 = PlayerPrefs.GetInt("Materi6", 0);
+        Materi7 = PlayerPrefs.GetInt("Materi7", 0);
+        Materi8 = PlayerPrefs.GetInt("Materi8", 0);
+
+        if (Materi2 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock1").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[1].FoodStatus = true;
+        }
+
+        if (Materi3 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock2").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[2].FoodStatus = true;
+        }
+
+        if (Materi4 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock3").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[3].FoodStatus = true;
+        }
+
+        if (Materi5 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock4").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[4].FoodStatus = true;
+        }
+
+        if (Materi6 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock5").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[5].FoodStatus = true;
+        }
+
+        if (Materi7 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock6").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[6].FoodStatus = true;
+        }
+
+        if (Materi8 != 0)
+        {
+            GameObject imgLock = GameObject.Find("imgLock7").gameObject;
+            imgLock.SetActive(false);
+            Objectfood[7].FoodStatus = true;
+        }
     }
 }

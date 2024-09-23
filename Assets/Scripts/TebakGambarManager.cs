@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class TebakGambarManager : MonoBehaviour
 {
+    public System.String LevelTebakGambar;
     public GameObject panelMenang;
     public AudioSource audioMenang;
     public GameObject panelKalah;

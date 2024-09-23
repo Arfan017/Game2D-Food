@@ -7,13 +7,11 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     private DataParsistenceManager dataParsistenceManager;
-
-    public static DataParsistenceManager instance { get; private set; }
     public GameObject panelMenu;
 
     void Start()
     {
-        dataParsistenceManager = FindAnyObjectByType<DataParsistenceManager>();
+        // dataParsistenceManager = FindAnyObjectByType<DataParsistenceManager>();
         if (dataParsistenceManager != null)
         {
             dataParsistenceManager.NewGame();

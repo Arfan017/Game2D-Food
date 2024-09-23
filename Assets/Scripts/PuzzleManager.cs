@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
+    public System.String LevelQuiz;
+
     [SerializeField]
     private Transform[] pictures;
 

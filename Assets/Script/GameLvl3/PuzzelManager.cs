@@ -9,6 +9,7 @@ using TMPro;
 
 public class PuzzelManager : MonoBehaviour
 {
+    public String LevelPuzzle;
     public GameObject SelectedPiece;
     public Sprite newPuzzle;
     public AudioSource myAudioSource;

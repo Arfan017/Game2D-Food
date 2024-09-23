@@ -5,16 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public int DataStar;
-    public SerializableDictionary<string, bool> DataStatusMateri;
-    public SerializableDictionary<string, int> DataPointMateri;
-    public SerializableDictionary<string, bool> DataStatusGame;
+    public int Keys;
+    public SerializableDictionary<string, bool> StatusMateri;
+    public SerializableDictionary<string, bool> StatusGame;
 
     public GameData()
     {
-        this.DataStar = 0;
-        DataStatusMateri = new SerializableDictionary<string, bool>();
-        DataPointMateri = new SerializableDictionary<string, int>();
-        DataStatusGame = new SerializableDictionary<string, bool>();
+        this.Keys = 0;
+        this.StatusMateri = new SerializableDictionary<string, bool>();
+        this.StatusGame = new SerializableDictionary<string, bool>();
     }
 }
