@@ -22,6 +22,7 @@ public class PuzzelManager : MonoBehaviour
 
     public AudioSource audioMenang;
     public AudioSource audioKalah;
+    int keys;
 
     public int RemeaningPlace_
     {
@@ -38,7 +39,6 @@ public class PuzzelManager : MonoBehaviour
             }
         }
     }
-    // AudioManager audioManager;
 
     private void Awake()
     {
@@ -51,6 +51,7 @@ public class PuzzelManager : MonoBehaviour
         myAudioSource.volume = PlayerPrefs.GetFloat("musicVolume");
         currentTime = timeInSeconds;
         timerIsRunning = true;
+        keys = PlayerPrefs.GetInt("keys", 0);
     }
 
     void Update()
@@ -98,30 +99,6 @@ public class PuzzelManager : MonoBehaviour
     public GameObject StartPanel, PanelMenang, PanelKalah;
     public void SetPuzzlePhoto(Sprite Photo)
     {
-        // string nextPuzzleName = PlayerPrefs.GetString("NextPuzzlePhoto", "");
-        // // Debug.Log(nextPuzzleName);
-
-        // if (!string.IsNullOrEmpty(nextPuzzleName))
-        // {
-        //     Photo = Resources.Load<Sprite>(nextPuzzleName);
-        //     for (int i = 0; i < 36; i++)
-        //     {
-        //         Transform pieceTransform = GameObject.Find("Piece (" + i + ")")?.transform;
-        //         if (pieceTransform != null)
-        //         {
-        //             Transform puzzleTransform = pieceTransform.Find("Puzzle");
-        //             if (puzzleTransform != null)
-        //             {
-        //                 puzzleTransform.GetComponent<SpriteRenderer>().sprite = Photo;
-        //             }
-        //         }
-        //     }
-        //     PlayerPrefs.DeleteKey("NextPuzzlePhoto");
-        // }
-        // else
-        // {
-        // Debug.Log(nextPuzzleName);
-        // Photo != null
         for (int i = 0; i < 36; i++)
         {
             Transform pieceTransform = GameObject.Find("Piece (" + i + ")")?.transform;
@@ -135,26 +112,31 @@ public class PuzzelManager : MonoBehaviour
             }
         }
         StartPanel.SetActive(false);
-        // }
     }
 
     public void NextPuzzle()
     {
         SceneManager.LoadSceneAsync(6);
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        // PlayerPrefs.SetString("NextPuzzlePhoto", newPuzzle.name);
     }
 
     public void ShowPanelWin()
     {
         PanelMenang.SetActive(true);
         audioMenang.Play();
+        CekNamaSceneDanSave();
+        StopTimer();
     }
 
     public void ShowPanelLose()
     {
         PanelKalah.SetActive(true);
         audioKalah.Play();
+        StopTimer();
+    }
+
+    private void StopTimer()
+    {
+        timerIsRunning = false;
     }
 
     public void NextGame(int sceneIndex)
@@ -165,7 +147,6 @@ public class PuzzelManager : MonoBehaviour
     public void ExitGame(int sceneIndex)
     {
         SceneManager.LoadSceneAsync(sceneIndex);
-        // Destroy(audioManager.gameObject);
     }
 
     public void ReplayGame()
@@ -175,13 +156,28 @@ public class PuzzelManager : MonoBehaviour
 
     void SetTime(float value)
     {
-        TimeSpan time = TimeSpan.FromSeconds(currentTime);                       //set the time value
-        TextTime.text = time.ToString("mm':'ss");   //convert time to Time format
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        TextTime.text = time.ToString("mm':'ss");
 
         if (currentTime <= 0)
         {
             Time.timeScale = 0;
             ShowPanelLose();
+        }
+    }
+
+    private void CekNamaSceneDanSave()
+    {
+        Scene NamaScene = SceneManager.GetActiveScene();
+        string namaGame = NamaScene.name;
+        if (namaGame == "GamePuzzle1")
+        {
+            int PoinPuzzleLvl1 = PlayerPrefs.GetInt("PoinPuzzleLvl1", 1);
+            keys += PoinPuzzleLvl1;
+            PlayerPrefs.SetInt("keys", keys);
+            PlayerPrefs.SetInt("PoinPuzzleLvl1", 0);
+            PlayerPrefs.SetInt("Materi8", 1);
+            PlayerPrefs.Save();
         }
     }
 }

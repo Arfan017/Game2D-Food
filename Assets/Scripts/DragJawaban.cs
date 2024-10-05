@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class DragJawaban : MonoBehaviour
 {
@@ -9,11 +11,13 @@ public class DragJawaban : MonoBehaviour
     private Transform posisiJawaban;       // Menyimpan transform dari posisi jawaban
     public int ID;                         // ID unik untuk mencocokkan jawaban dengan tempat jawaban
     private TebakGambarManager tebakGambarManager; // Referensi ke TebakGambarManager untuk mengelola status jawaban
+    int keys;
 
     void Start()
     {
         posisiAwal = transform.position;
         tebakGambarManager = GameObject.Find("GameManager").GetComponent<TebakGambarManager>();
+        keys = PlayerPrefs.GetInt("keys", 0);
     }
 
     private void OnMouseDrag()
@@ -32,6 +36,7 @@ public class DragJawaban : MonoBehaviour
             {
                 Debug.Log("Jawaban Benar");
                 tebakGambarManager.JawabanBenar = true;
+                CekNamaSceneDanSave();
             }
             else
             {
@@ -83,5 +88,38 @@ public class DragJawaban : MonoBehaviour
         }
 
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    private void CekNamaSceneDanSave()
+    {
+        Scene NamaScene = SceneManager.GetActiveScene();
+        string namaGame = NamaScene.name;
+
+        if (namaGame == "SceneTebakGambar1")
+        {
+            int PoinTebakGambarLvl1 = PlayerPrefs.GetInt("PoinTebakGambarLvl1", 1);
+            keys += PoinTebakGambarLvl1;
+            PlayerPrefs.SetInt("keys", keys);
+            PlayerPrefs.SetInt("PoinTebakGambarLvl1", 0);
+            PlayerPrefs.SetInt("Materi5", 1);
+            PlayerPrefs.Save();
+        }
+        else if (namaGame == "SceneTebakGambar2")
+        {
+            int PoinTebakGambarLvl2 = PlayerPrefs.GetInt("PoinTebakGambarLvl2", 1);
+            keys += PoinTebakGambarLvl2;
+            PlayerPrefs.SetInt("keys", keys);
+            PlayerPrefs.SetInt("PoinTebakGambarLvl2", 0);
+            PlayerPrefs.SetInt("Materi6", 1);
+            PlayerPrefs.Save();
+        }
+        else if (namaGame == "SceneTebakGambar3")
+        {
+            int PoinTebakGambarLvl3 = PlayerPrefs.GetInt("PoinTebakGambarLvl3", 1);
+            keys += PoinTebakGambarLvl3;
+            PlayerPrefs.SetInt("keys", keys);
+            PlayerPrefs.SetInt("PoinTebakGambarLvl3", 0);
+            PlayerPrefs.Save();
+        }
     }
 }

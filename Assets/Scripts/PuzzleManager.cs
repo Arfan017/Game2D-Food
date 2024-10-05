@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -15,13 +16,13 @@ public class PuzzleManager : MonoBehaviour
     public static bool youWin = false;
     [SerializeField]
     private float startTime = 60f; // Waktu mulai dalam detik
-
     private float currentTime;
     [SerializeField]
     private TextMeshProUGUI timerText;
     [SerializeField]
     private GameObject gameOverText; // UI Text yang muncul saat waktu habis
     private bool isGameOver = false;
+    int keys;
 
     void Awake()
     {
@@ -44,6 +45,7 @@ public class PuzzleManager : MonoBehaviour
             winText.SetActive(true);
             youWin = true;
             StopTimer(); // Menghentikan timer jika menang
+            // CekNamaSceneDanSave();
         }
 
         if (!isGameOver)
@@ -118,5 +120,29 @@ public class PuzzleManager : MonoBehaviour
     {
         gameOverText.SetActive(true);
         // Tambahkan logika game over lainnya di sini, seperti menghentikan permainan atau menampilkan menu
+    }
+
+    private void CekNamaSceneDanSave()
+    {
+        Scene NamaScene = SceneManager.GetActiveScene();
+        string namaGame = NamaScene.name;
+        if (namaGame == "GamePuzzle1")
+        {
+            int PoinPuzzleLvl1 = PlayerPrefs.GetInt("PoinPuzzleLvl1", 1);
+            keys += PoinPuzzleLvl1;
+            PlayerPrefs.SetInt("keys", keys);
+            PlayerPrefs.SetInt("PoinPuzzleLvl1", 0);
+            PlayerPrefs.SetInt("Materi8", 1);
+            PlayerPrefs.Save();
+            Debug.Log("CekNamaSceneDanSave(); Dijalankan");
+        }
+        // else if (namaGame == "ScenePuzzle2")
+        // {
+        //     int PoinPuzzleLvl2 = PlayerPrefs.GetInt("PoinPuzzleLvl2", 1);
+        //     keys += PoinPuzzleLvl2;
+        //     PlayerPrefs.SetInt("keys", keys);
+        //     PlayerPrefs.SetInt("PoinPuzzleLvl2", 0);
+        //     PlayerPrefs.Save();
+        // }
     }
 }

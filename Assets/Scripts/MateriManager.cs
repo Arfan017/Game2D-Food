@@ -2,15 +2,19 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MateriManager : MonoBehaviour
-// , IDataPersistence
 {
     public GameObject panelMateri;
     public GameObject panelFood;
     public GameObject PanelHadiah;
+    public GameObject PanelBukaMateri;
+    public GameObject PanelBukaSemuaMateri;
+    public TextMeshProUGUI TextPesanBukaMateri;
+    public TextMeshProUGUI TextPointKeys;
     public GameObject Pointer;
     public Image imageFood;
     public TextMeshProUGUI nameFood;
@@ -18,6 +22,7 @@ public class MateriManager : MonoBehaviour
     public TextMeshProUGUI TextStar;
     public TextMeshProUGUI TextPesan;
     public Button BtnTutupPanel;
+    public Button BtnBukaMateri;
     public TextMeshProUGUI TextKeys;
     public static DataParsistenceManager instance { get; private set; }
     public Food[] Objectfood;
@@ -27,6 +32,8 @@ public class MateriManager : MonoBehaviour
     private int PointStart;
     int keys;
     int posisiMateri;
+    int Materi2, Materi3, Materi4, Materi5, Materi6, Materi7, Materi8;
+    int TampilkanPanelBukaSemuaMateri;
 
     public void Start()
     {
@@ -35,17 +42,44 @@ public class MateriManager : MonoBehaviour
         {
             DataParsistenceManager.instance.LoadGame();
         }
+
+        TampilkanPanelBukaSemuaMateri = PlayerPrefs.GetInt("TampilkanPanelBukaSemuaMateri", 1);
+
         // DataParsistenceManager.instance.LoadGame();
         BtnTutupPanel.onClick.AddListener(TutupPanel);
 
         int keys = PlayerPrefs.GetInt("keys", 0);
         TextKeys.text = keys.ToString();
+
         CekStatusMateri();
 
-        if (keys == 3)
+        if (keys == 3 && Materi4 == 0)
         {
-            // PanelHadiah.SetActive(true);
+            PanelBukaMateri.SetActive(true);
+            TextPesanBukaMateri.text = "Yeee... Kunci Kamu Telah mencapai 3! \n\nyuk buka materi 4!";
+            TextPointKeys.text = keys.ToString();
+            BtnBukaMateri.onClick.AddListener(() => BukaMateri("Materi4", "imgLock3", 3));
+
         }
+
+        if (keys == 6 && Materi7 == 0)
+        {
+            PanelBukaMateri.SetActive(true);
+            TextPesanBukaMateri.text = "Yeee... Kunci Kamu Telah mencapai 6! \n\nyuk buka materi 7!";
+            TextPointKeys.text = keys.ToString();
+            BtnBukaMateri.onClick.AddListener(() => BukaMateri("Materi7", "imgLock6", 6));
+        }
+
+    }
+
+    private void BukaMateri(string materi, string _imgLock, int ObjectFood)
+    {
+        PlayerPrefs.SetInt(materi, 1);
+        PlayerPrefs.Save();
+        PanelBukaMateri.SetActive(false);
+        GameObject imgLock = GameObject.Find(_imgLock).gameObject;
+        imgLock.SetActive(false);
+        Objectfood[ObjectFood].FoodStatus = true;
     }
 
     public void Update()
@@ -107,6 +141,7 @@ public class MateriManager : MonoBehaviour
         {
             panelFoodIsActive(Objectfood[ObjectFoodPosition.Value].ImageFood, Objectfood[ObjectFoodPosition.Value].NameFood,
             Objectfood[ObjectFoodPosition.Value].DeskFood, Objectfood[ObjectFoodPosition.Value].PointFood);
+            BukaGame(posisiMateri.ToString());
         }
         else
         {
@@ -125,12 +160,60 @@ public class MateriManager : MonoBehaviour
         panelMateri.SetActive(true);
         panelFood.SetActive(false);
 
-        // PointStar = PointFood;
-        // TextStar.text = PointStar.ToString();
-
         imageFood.sprite = ImageFood;
         nameFood.text = NameFood;
         descriptionFood.text = DeskFood;
+    }
+
+    private void BukaGame(string Game)
+    {
+        if (Game == "1")
+        {
+            PlayerPrefs.SetInt("GameQuiz1", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "2")
+        {
+            PlayerPrefs.SetInt("GameQuiz2", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "3")
+        {
+            PlayerPrefs.SetInt("GameQuiz3", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "4")
+        {
+            PlayerPrefs.SetInt("GameTebakGambar1", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "5")
+        {
+            PlayerPrefs.SetInt("GameTebakGambar2", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "6")
+        {
+            PlayerPrefs.SetInt("GameTebakGambar3", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "7")
+        {
+            PlayerPrefs.SetInt("GamePuzzle1", 1);
+            PlayerPrefs.Save();
+        }
+
+        if (Game == "8")
+        {
+            PlayerPrefs.SetInt("GamePuzzle2", 1);
+            PlayerPrefs.Save();
+        }
     }
 
     public void MateriIsClickTrue()
@@ -166,12 +249,42 @@ public class MateriManager : MonoBehaviour
     private void panelHadiah()
     {
         PanelHadiah.SetActive(true);
-        TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game quiz level " + posisiMateri.ToString();
+        if (posisiMateri == 1)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game quiz level 1";
+        }
+        else if (posisiMateri == 2)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game quiz level 2";
+        }
+        else if (posisiMateri == 3)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game quiz level 3";
+        }
+        else if (posisiMateri == 4)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game tebak gambar level 1";
+        }
+        else if (posisiMateri == 5)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game tebak gambar level 2";
+        }
+        else if (posisiMateri == 6)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game tebak gambar level 3";
+        }
+        else if (posisiMateri == 7)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game puzzle level 1";
+        }
+        else if (posisiMateri == 8)
+        {
+            TextPesan.text = "horeee.... kamu telah selesai membaca materi.\n\nselamat kamu telah membuka game puzzle level 2";
+        }
     }
 
     void CekStatusMateri()
     {
-        int Materi2, Materi3, Materi4, Materi5, Materi6, Materi7, Materi8;
         Materi2 = PlayerPrefs.GetInt("Materi2", 0);
         Materi3 = PlayerPrefs.GetInt("Materi3", 0);
         Materi4 = PlayerPrefs.GetInt("Materi4", 0);
@@ -227,6 +340,14 @@ public class MateriManager : MonoBehaviour
             GameObject imgLock = GameObject.Find("imgLock7").gameObject;
             imgLock.SetActive(false);
             Objectfood[7].FoodStatus = true;
+        }
+
+        if (Materi2 == 1 && Materi3 == 1 && Materi4 == 1 && Materi5 == 1 && Materi6 == 1 && Materi7 == 1 && Materi8 == 1 && TampilkanPanelBukaSemuaMateri == 1)
+        {
+            PanelBukaSemuaMateri.SetActive(true);
+            TampilkanPanelBukaSemuaMateri = 0;
+            PlayerPrefs.SetInt("TampilkanPanelBukaSemuaMateri", 0);
+            PlayerPrefs.Save();
         }
     }
 }

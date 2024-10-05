@@ -133,7 +133,6 @@ public class QuizManager : MonoBehaviour
             keys += PoinKuisLvl3;
             PlayerPrefs.SetInt("keys", keys);
             PlayerPrefs.SetInt("PoinKuisLvl3", 0);
-            // PlayerPrefs.SetInt("Materi4", 1);
             PlayerPrefs.Save();
         }
 

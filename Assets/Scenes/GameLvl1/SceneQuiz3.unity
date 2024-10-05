@@ -2904,7 +2904,7 @@ MonoBehaviour:
     - Ikan bakar manokwari
     - Aunu sanebre
     - semua benar
-    correctOptionIndex: 1
+    correctOptionIndex: 3
   optionButtons:
   - {fileID: 1620085776}
   - {fileID: 885050681}
